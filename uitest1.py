@@ -1,4 +1,4 @@
-from tkinter import Tk, Button
+from tkinter import *
 
 
 class StartWindow(Tk):
@@ -8,15 +8,24 @@ class StartWindow(Tk):
         self.title("ThymeWriter")
         self.geometry("1200x700")
 
+        # search bar
+        self.searchbar = Entry()
+        self.searchbar.pack(side="right", anchor="ne")
+
         # tab buttons
         self.wordstab = Button(text="Wordcount", command=self.handle_words_press)
-        self.wordstab.pack()
+        self.wordstab.pack(side="left", anchor="nw")
         self.achtab = Button(text="Achievements")
-        self.achtab.pack()
+        self.achtab.pack(side="left", anchor="nw")
         self.writetab = Button(text="Writer")
-        self.writetab.pack()
+        self.writetab.pack(side="left", anchor="nw")
         self.notetab = Button(text="Notes")
-        self.notetab.pack()
+        self.notetab.pack(side="left", anchor="nw")
+        
+        #logo
+        self.logoimage = PhotoImage(file='./assets/thymewriterlogo3.png')
+        self.logolabel = Label(image=self.logoimage)
+        self.logolabel.pack()
 
     def handle_words_press(self):
         wordswindow = WordsWindow()
