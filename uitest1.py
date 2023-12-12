@@ -13,6 +13,8 @@ class StartWindow(Tk):
         self.searchbar.pack(side="right", anchor="ne")
 
         # tab buttons
+        self.hometab = Button(text="Wordcount", command=self.handle_home_press)
+        self.hometab.pack(side="left", anchor="nw")
         self.wordstab = Button(text="Wordcount", command=self.handle_words_press)
         self.wordstab.pack(side="left", anchor="nw")
         self.achtab = Button(text="Achievements", command=self.handle_ach_press)
@@ -21,11 +23,15 @@ class StartWindow(Tk):
         self.writetab.pack(side="left", anchor="nw")
         self.notetab = Button(text="Notes", command=self.handle_notes_press)
         self.notetab.pack(side="left", anchor="nw")
-        
-        #logo
+
+        self.handle_home_press()
+    
+
+    def handle_home_press(self):
+        #draw logo
         self.logoimage = PhotoImage(file='./assets/thymewriterlogo3.png')
         self.logolabel = Label(image=self.logoimage)
-        self.logolabel.pack()
+        self.logolabel.place(relx=0.5, rely=0.5, anchor=CENTER)
 
     def handle_words_press(self):
         wordswindow = WordsWindow()
