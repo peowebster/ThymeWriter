@@ -1,10 +1,12 @@
 from tkinter import *
+from tkinter.ttk import *
 import matplotlib
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg,
     NavigationToolbar2Tk
 )
+from planmaker import *
 
 matplotlib.use("TkAgg")
 
@@ -109,10 +111,10 @@ class Window(Tk):
         self.pastwords.pack()
 
         self.paceselected = StringVar()
-        self.r1 = Radiobutton(text="Randomised", value="rand", variable=self.paceselected)
-        self.r2 = Radiobutton(text="Increasing", value="inc", variable=self.paceselected)
-        self.r3 = Radiobutton(text="Decreasing", value="dec", variable=self.paceselected)
-        self.r4 = Radiobutton(text="Steady", value="st", variable=self.paceselected)
+        self.r1 = Radiobutton(text="Randomised", value="randandom", variable=self.paceselected)
+        self.r2 = Radiobutton(text="Increasing", value="ascending", variable=self.paceselected)
+        self.r3 = Radiobutton(text="Decreasing", value="descending", variable=self.paceselected)
+        self.r4 = Radiobutton(text="Steady", value="steady", variable=self.paceselected)
         self.r1.pack()
         self.r2.pack()
         self.r3.pack()
@@ -153,6 +155,56 @@ class AchievementObject():
         self.achievementbox.icon = Label(image=self.icon)
         self.achievementbox.icon.pack()
         
+class Note():
+    def __init__(self, contents, tags):
+        self.contents = contents
+        self.tags = tags
+
+    def add_tag(self, tag):
+        self.tags.append(str(tag))
+
+class User():
+    def __init__(self):
+        self.projects = []
+        settingswindow = UserDetailsWindow(self)
+        settingswindow.mainloop()
+
+class UserDetailsWindow(Tk):
+    def __init__(self, user):
+        super().__init__()
+        self.title = "User Details"
+        self.geometry("1200x700")
+
+        user.username = StringVar()
+        self.usernamefield = Entry(textvariable=user.username)
+        self.usernamefield.pack()
+
+        user.currentproject = StringVar()
+        self.projectpicker = Combobox(textvariable=user.currentproject, values=user.projects, state="readonly")
+
+
+class Document():
+    def __init__(self, title):
+        self.title = title
+        self.contents = ""
+        self.path = "./documents/" + self.validtitle(self.title)
+
+    def validtitle(self, title):
+        modtitle = title
+        for i in range(len(modtitle) - 1):
+            if (modtitle[i] == ' ' or modtitle[i] == '/'):
+                modtitle[i] = "_"       
+        return modtitle
+
+
+class Project():
+    def __init__(self, name):
+        self.name = name
+        self.wordcount = 0
+        self.notes = []
+
+    def add_note(self):
+        self.notes.append(Note(self, "", []))
 
 # Start the event loop.
 window = Window()

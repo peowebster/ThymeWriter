@@ -39,9 +39,3 @@ def makeplan (wordcount, daycount, plantype):
     
     print(days)
     return days
-
-makeplan(10000, 10, "random")
-makeplan(10000, 10, "ascending")
-makeplan(10000, 10, "descending")
-makeplan(10000, 10, "steady")
-makeplan(10000, 10, "folga wooga imoga womp")
